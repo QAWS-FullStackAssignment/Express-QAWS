@@ -58,7 +58,7 @@ var logoutController = function (req, res, next) {
             if (session)
                 res.status(200).json({ status: 'success', msg: `token -> ${session.get('token')} is deleted` })
             else
-                res.status(400).json({
+                res.status(401).json({
                     auth: false,
                     msg: "you are not authorized"
                 })

@@ -10,7 +10,7 @@ var auth = function (req, res, next) {
             if (session)
                 next();
             else
-                res.status(400).json({
+                res.status(401).json({
                     auth: false,
                     msg: "you are not authorized"
                 });

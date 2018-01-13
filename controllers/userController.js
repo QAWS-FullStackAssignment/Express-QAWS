@@ -64,6 +64,7 @@ let addUser = (req, res, obj) => {
 }
 var signup = function (req, res, next) {
     const email = req.body.email;
+    console.log(req.body.email)
     //check if user is already registered
     User.findOne({ email: email }, (err, user) => {
         if (err)
