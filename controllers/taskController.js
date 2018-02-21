@@ -24,7 +24,7 @@ var getAssigned = function (req, res, next) {
 }
 
 //Create Task
-var createTask = function createTask(req, res, next) {
+var createTask = function (req, res, next) {
     const task = new Task()
     const assiginee = req.body.assiginee
 
@@ -42,8 +42,32 @@ var createTask = function createTask(req, res, next) {
     })
 }
 
+//Start the Task
+var statusEnum = { "todo": "TO_DO", "inprogress": "IN_PROGRESS", "completed": "COMPLETED" }
+Object.freeze(statusEnum)
+var startTask = function (req, res, next) {
+    var id = req.params.id;
+    Task.findByIdAndUpdate(id, req.body, { new: true }, (err, task) => {
+        if (err)
+            res.status(500).json({ status: 'failed', err })
+        else
+            res.status(200).json({ status: "success", task })
+    })
+
+    Task.findById(id, (err, task) => {
+        status = req.body.status;
+        if (err) throw err;
+        if (task) {
+            if (task.status === null) {
+                Task.findByIdAndUpdate(id, statusEnum)
+            }
+        }
+    })
+}
+
 module.exports = {
     getTodo: getTodo,
     getAssigned: getAssigned,
-    createTask: createTask
+    createTask: createTask,
+    startTask: startTask
 }

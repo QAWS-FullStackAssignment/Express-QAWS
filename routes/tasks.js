@@ -12,5 +12,6 @@ router.use('/', password)
 router.get('/todo/:userId', taskController.getTodo);
 router.get('/assigned/:userId', taskController.getAssigned);
 router.post('/create', taskController.createTask);
+router.put('/updateTask/:taskId', taskController.startTask);
 
 module.exports = router;
